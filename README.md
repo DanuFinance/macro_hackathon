@@ -37,7 +37,7 @@ Automated market makers (AMMs) are often associated with bonding curves due to i
 
 ## Structure of the project
 
-The [pitch deck](https://github.com/DanuFinance/macro-hackathon/blob/sanitized/pitch/pitch.pdf) can be found in the folder `/pitch`. Including the TeX file, the figures and the data used for generating the figures.
+The pitch deck can be found in the folder `/pitch`. Including the TeX file, the figures and the data used for generating the figures.
 
 The Smart Contracts can be found in the `/solidity` directory. These include all the contracts used and written during the hackathon, including tests.
 
