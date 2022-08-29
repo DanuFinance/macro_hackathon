@@ -1,0 +1,67 @@
+\begin{figure}
+	\begin{tikzpicture}
+		\begin{axis}[
+			danubrandedplot,
+			xmin = 0,
+			xmax = 9,
+			xtick = {0, ..., 9},
+			xlabel = {Number of transactions},
+			enlarge y limits = {rel = 0.1, upper},
+			ylabel = {Percentage of collection sold},
+			ytick = {0, 50, 100},
+			extra y ticks = {39},
+			extra y tick labels = {\textcolor{branding-100}{\(\mathbf{39}\)}},
+			table/col sep = comma,
+			domain = 0:9,
+			legend pos = south east,
+		]
+
+			% Background traces
+			\foreach \j in {1, 2, ..., 20}{
+				\addplot [
+					thin,
+					grayscale-600,
+					forget plot
+				] table [
+					x = count,
+					y = n_trades,
+				] {data/frequencies/\j.csv};
+			}
+			\addlegendimage{thin, grayscale-600};
+			\addlegendentry{Individual collections};
+
+			% Median, taken from Python script (ask Anis)
+			\addplot [very thick, branding-100] table [
+				x = count,
+				y = n_trades
+			] {data/frequencies/median.csv};
+			\addlegendentry {Median};
+			% Cumulative fraction
+			\addplot [
+				black,
+				densely dotted,
+				every axis plot post/.append style = {
+					mark = x,
+					mark options = {
+						solid
+					}
+				}
+			] coordinates {
+				(0, 39.3)
+				(1, 68.0)
+				(2, 84.4)
+				(3, 92.9)
+				(4, 96.5)
+				(5, 98.2)
+				(6, 98.9)
+				(7, 99.0)
+				(8, 99.1)
+				(9, 99.2)
+			};
+			\addlegendentry{Cumulative median};
+		\end{axis}
+        \end{tikzpicture}
+        \caption{Pareto chart of the percentage of collections sold, including e.g. \href{https://boredapeyachtclub.com/}{Bored Ape Yacht Club (BAYC)}, for the twenty most-traded PFP-based collections on \href{https://opensea.io}{OpenSea}. 39 \% of indexed collections do not trade at all and 29 \% exchange hands only once.}
+        \label{fig:characteristic_normalized_price}
+\end{figure}
+

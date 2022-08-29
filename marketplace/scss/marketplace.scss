@@ -1,0 +1,529 @@
+/* Written for Danu, 2022 */
+
+
+html {
+
+	body {
+		display: flex;
+		padding: 0 !important;
+
+		.popup-wrapper {
+			background-color: rgba(0, 0, 0, 0.7);
+			display: flex;
+			position: fixed;
+			height: 100vh;
+			z-index: 9;
+			width: 100vw;
+
+			.popup-contents {
+				background-color: white;
+				border-radius: 0.25em;
+				padding: var(#{--dim-small});
+				margin: auto;
+
+				.title_bar {
+					align-items: center;
+					border-bottom: 1px solid var(#{--grayscale-600});
+					display: flex;
+					margin-bottom: var(#{--dim-small});
+					min-width: 30vw;
+					padding-bottom: 1em;
+					justify-content: space-between;
+
+					span { font-weight: 700; }
+
+					button.close {
+						align-items: center;
+						background-color: var(#{--grayscale-700});
+						border-radius: 0.25em;
+						color: var(#{--grayscale-200});
+						cursor: pointer;
+						display: flex;
+						font-weight: 600;
+						fill: var(#{--grayscale-200});
+						padding: 0.5em 1em;
+						
+						svg {
+							height: 1em;
+							margin-right: 1em;
+						}
+					}
+				}
+
+				.message { text-align: center; color: var(#{--grayscale-200}); }
+			}
+
+			.signup-metamask {
+				button.close { cursor: not-allowed !important; }
+
+				.message img {
+					display: block;
+					height: 10vh;
+					margin: var(#{--dim-small}) auto;
+				}
+			}
+
+		}
+
+
+		& > aside {
+			align-self: flex-start;
+			border-right: 1px solid var(#{--grayscale-600});
+			display: flex;
+			flex-direction: column;
+			height: 100vh;
+			padding: var(#{--dim-small}) 0;
+			padding-left: 0;
+
+			h3, div.login { padding-left: var(#{--dim-small}); }
+
+			ul li { white-space: nowrap; }
+
+			ul {
+
+				li {
+					a, button {
+						align-items: center;
+						background: none;
+						color: var(#{--grayscale-200});
+						cursor: pointer;
+						display: flex;
+						font-size: small;
+						font-weight: 600;
+						fill: var(#{--grayscale-200});
+						padding: 0.5em var(#{--dim-large}) 0.5em 0;
+						text-decoration: none;
+						width: 100%;
+
+						svg {
+							height: 1em;
+							padding: 0 2em 0 var(#{--dim-small});
+							width: 96px;  /* viewBox messes up width */
+						}
+					}
+
+					button:hover, button[aria-current="true"] {
+						color: var(#{--color-branding-100});
+
+						svg { fill: var(#{--color-branding-100}); }
+					}
+
+					button[aria-current="true"] {
+						position: relative;
+
+						&::before {
+							background-color: var(#{--color-branding-100});
+							border-radius: 0 0.25em 0.25em 0;
+							content: "";
+							height: 100%;
+							left: 0;
+							position: absolute;
+							top: 0;
+							width: 5px;
+						}
+					}
+				}
+			}
+
+			ul + h3 { margin-top: var(#{--dim-small}); }
+
+			button#connect_wallet {
+				align-items: center;
+				background-color: white;
+				border: 1px solid  rgba(163, 163, 163, 0.1);
+				border-radius: 0.25em;
+				box-shadow: var(#{--button-box-shadow});
+				cursor: pointer;
+				display: flex;
+				font-size: small;
+				font-weight: 600;
+				justify-content: center;
+				margin: var(#{--dim-small});
+				margin-top: auto;
+				padding: 0.5em 0;
+
+				svg {
+					fill: black;
+					height: 1em;
+					margin-right: 1.5em;
+				}
+
+				&:disabled {
+					background-color: var(#{--grayscale-700});
+					cursor: not-allowed !important;
+
+					svg { fill: var(#{--grayscale-200}); }
+				}
+			}
+
+			ul li:not(:first-of-type) { margin-top: 1em; }
+
+			& > span.accentuate {
+				margin: 0 auto;
+				text-align: center;
+			}
+		}
+
+		& > main {
+			width: 100%;
+			overflow-y: auto;
+			position: relative;
+
+			.tabs {
+				display: none;
+				position: absolute;
+			}
+
+			.tabs[aria-current="true"] {
+				display: unset;
+			}
+
+			ul.toolbar {
+				display: flex;
+				margin: var(#{--dim-small}) 0;
+				list-style: none;
+
+				li {
+					button {
+						align-items: center;
+						border-radius: 0.25em;
+						display: flex;
+						font-size: small;
+						font-weight: 500;
+						padding: 0.5em 1em;
+
+						svg {
+							height: 1em;
+							margin-right: 1em;
+						}
+					}
+
+					button:disabled {
+						background-color: var(#{--grayscale-700});
+						cursor: not-allowed !important;
+						fill: var(#{--grayscale-200});
+					}
+
+				button:hover { cursor: pointer; }
+
+
+				}
+
+				li:first-of-type { margin-left: -1em; }  /* align text; microtypography */
+
+				li:not(:first-of-type) { margin-left: 2em; }
+			}
+
+			#tab-discover {
+				background-color: white;
+				width: 100%;
+				z-index: 3;
+
+				input {
+					font-size: var(#{--dim-h3});
+					outline: 0;  /* should probably not do this because of accessibility? */
+					padding: 1em 0 1em var(#{--dim-small});
+					width: 100%;
+				}
+
+				.content-wrapper {
+					width: 100%;
+
+					header {
+						animation: animateBackground 5s ease infinite;
+						background-image: linear-gradient(
+							135deg,
+							var(#{--color-branding-800}) 0%,
+							var(#{--color-branding-900}) 25%,
+							var(#{--grayscale-800}) 51%,
+							white 100%
+						);
+						background-size: 300% 300%;
+						border-color: var(#{--grayscale-600});
+						border-style: solid;
+						border-width: 0 0 1px 0;
+						display: flex;
+						flex-direction: column;
+						padding: var(#{--dim-large}) var(#{--dim-small});
+						padding-bottom: 0;
+						position: relative;
+						text-align: center;
+
+						.logo {
+							margin: 0 auto var(#{--dim-small}) auto;
+
+							svg {
+								height: var(#{--dim-h2});
+								margin-left: -1.5em;  /* optical alignment */
+							}
+
+							span.logotype { font-size: var(#{--dim-h2}); }
+						}
+
+
+						h2 {
+							font-weight: 600;
+							margin: 1em 0 1.5em 0;
+				 		}
+
+						p.description { margin: 0 auto; }
+
+						p#faucets-hd { margin: var(#{--dim-small}) auto 1em auto; }
+
+						ul#faucets li {
+							display: inline;
+
+							button {
+								align-items: center;
+								background: none;
+								border: 1px solid var(#{--grayscale-200});
+								border-radius: 0.25em;
+								color: var(#{--grayscale-200});
+								cursor: pointer;
+								display: inline-flex;
+								font-size: small;
+								padding: 0.5em 1em;
+								text-decoration: none;
+
+								svg {
+									fill: var(#{--grayscale-200});
+									height: 1em;
+									margin-right: 1.5em;
+								}
+							}
+
+							button:hover {
+								border: 1px solid black;
+								color: black;
+
+								svg { fill: black; }
+							}
+						}
+
+						ul#faucets li:not(:first-of-type) { margin-left: 1.5em; }
+
+						p.disclaimer {
+							margin: var(#{--dim-large}) auto 1rem auto;
+							max-width: 100%;
+						}
+
+						p.version {
+							position: absolute;
+							bottom: 1rem;
+							right: var(#{--dim-small});
+						}
+					}
+
+					ul.toolbar {
+						margin: var(#{--dim-small});
+
+						button:not(:disabled) {
+							background-color: white;
+							border: 1px solid  rgba(163, 163, 163, 0.1);
+							box-shadow: var(#{--button-box-shadow});
+						}
+					}
+
+					#nft-grid {
+						display: grid;
+						/* https://css-tricks.com/auto-sizing-columns-css-grid-auto-fill-vs-auto-fit/ */
+						grid-template-columns: repeat(auto-fit, minmax(15vw, 1fr));
+						grid-gap: 2em;
+						margin: var(#{--dim-small});
+
+						button {
+							background: none;
+							text-align: left;
+
+							figure {
+								border-radius: 0.25em;
+								overflow: hidden;
+								position: relative;
+								transition-duration: transform 0.3s;
+
+								img {
+									display: block;
+									transition: transform 0.3s;
+									width: 100%;
+								}
+
+								figcaption {
+									color: white;
+									display: none;
+									font-size: var(#{--dim-h3});
+									font-weight: 700;
+									height: 100%;
+									position: absolute;
+									top: 0;
+									width: 100%;
+
+									h3 { margin: auto 0 1em 1em; }
+								}
+							}
+
+							figure:hover {
+								img {
+									transform: scale(1.1);
+								}
+
+								figcaption {
+									background-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0, 0, 0, 0.8) 90%, black);
+									display: flex;
+								}
+							}
+
+							.details {
+								font-size: small;
+								margin-top: 1em;
+
+								span.id {
+									display: block;
+									font-weight: 700;
+									margin-bottom: 0.25em;
+								}
+
+								span.views, span.fair-market_value {
+									color: var(#{--grayscale-200});
+									fill: var(#{--grayscale-200});
+									align-items: center;
+									display: inline-flex;
+								}
+
+								span.fair-market_value {
+									margin-left: 1em;
+								}
+
+								svg {
+									height: 1em;
+									margin-right: 0.5em;
+								}
+							}
+						}
+
+						button:hover { cursor: pointer; }
+					}
+				}
+			}
+
+			#tab-swap {
+				padding: var(#{--dim-small});
+				z-index: 2;
+
+				.swap-proposal {
+					align-items: flex-start;
+					display: flex;
+					gap: var(#{--dim-small});
+					margin-top: var(#{--dim-extra-large});
+
+					img {
+						border-radius: 0.25em;
+						width: 30vh;
+					}
+
+					.swap-proposal-row {
+						align-items: center;
+						display: flex;
+
+						h3 {
+							margin-bottom: 0;
+							white-space: nowrap;
+
+							svg {
+								height: var(#{--dim-h3});
+								transform: translateY(20%);
+							}
+						}
+
+						select, input {
+							background-color: var(#{--grayscale-700});
+							border-radius: 0.25em;
+							font-size: var(#{--dim-h3});
+							margin: 0 1em;
+							padding: 0.5em 1em;
+						}
+
+						input {
+							max-width: 10ch;
+						}
+					}
+
+					p.return_message, .swap-proposal-row:not(:first-of-type) {
+						margin-top: var(#{--dim-small});
+					}
+				}
+			}
+
+			#tab-lp {
+				background-color: var(#{--grayscale-800});  /* fake table background */
+				height: 100vh;
+				width: 100%;
+				z-index: 1;
+
+				header {
+					background-color: white;
+					padding: var(#{--dim-small});
+
+					ul.toolbar {
+						margin-bottom: 0;
+
+						button.open {
+							background-color: var(#{--color-branding-100});
+							color: white;
+							fill: white;
+						}
+
+						li:first-of-type { margin-left: -0.5em; }  /* + is messed up */
+					}
+				}
+
+				div[aria-role="table"] {
+					background-color: var(#{--grayscale-800});  /* fake table background */
+					display: grid;
+					grid-template-columns: repeat(3, min-content) auto;
+					width: 100%;
+
+					/* Header */
+					div:nth-child(-n+4) {
+						background-color: var(#{--grayscale-800});
+						border-width: 1px 0 3px 0;
+						color: var(#{--grayscale-200});
+						font-weight: 600;
+					}
+
+					div {
+						align-items: center;
+						background-color: white;
+						border-color: var(#{--grayscale-600});
+						border-style: solid;
+						border-width: 0 0 1px 0;
+						display: flex;
+						padding: 0.5em 1em;
+						white-space: nowrap;
+					}
+
+					/* First column */
+					div:nth-child(4n+1) {
+						padding-left: var(#{--dim-small});
+
+						input { margin: 0 auto; }
+					}
+
+					/* Last column */
+					div:nth-child(4n+4) {
+						color: var(#{--grayscale-200});
+					}
+				}
+			}
+		}
+	}
+
+}
+
+
+/* Taken from https://codepen.io/alvarotrigo/pen/dyzgOER */
+@keyframes animateBackground {
+	0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
+}
+

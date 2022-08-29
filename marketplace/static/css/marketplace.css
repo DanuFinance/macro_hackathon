@@ -1,0 +1,366 @@
+html body {
+  display: flex;
+  padding: 0 !important; }
+  html body .popup-wrapper {
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    position: fixed;
+    height: 100vh;
+    z-index: 9;
+    width: 100vw; }
+    html body .popup-wrapper .popup-contents {
+      background-color: white;
+      border-radius: 0.25em;
+      padding: var(--dim-small);
+      margin: auto; }
+      html body .popup-wrapper .popup-contents .title_bar {
+        align-items: center;
+        border-bottom: 1px solid var(--grayscale-600);
+        display: flex;
+        margin-bottom: var(--dim-small);
+        min-width: 30vw;
+        padding-bottom: 1em;
+        justify-content: space-between; }
+        html body .popup-wrapper .popup-contents .title_bar span {
+          font-weight: 700; }
+          html body .popup-wrapper .popup-contents .title_bar button.close {
+            align-items: center;
+            background-color: var(--grayscale-700);
+            border-radius: 0.25em;
+            color: var(--grayscale-200);
+            cursor: pointer;
+            display: flex;
+            font-weight: 600;
+            fill: var(--grayscale-200);
+            padding: 0.5em 1em; }
+            html body .popup-wrapper .popup-contents .title_bar button.close svg {
+              height: 1em;
+              margin-right: 1em; }
+      html body .popup-wrapper .popup-contents .message {
+        text-align: center;
+        color: var(--grayscale-200); }
+    html body .popup-wrapper .signup-metamask button.close {
+      cursor: not-allowed !important; }
+      html body .popup-wrapper .signup-metamask .message img {
+        display: block;
+        height: 10vh;
+        margin: var(--dim-small) auto; }
+  html body > aside {
+    align-self: flex-start;
+    border-right: 1px solid var(--grayscale-600);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: var(--dim-small) 0;
+    padding-left: 0; }
+    html body > aside h3, html body > aside div.login {
+      padding-left: var(--dim-small); }
+      html body > aside ul li {
+        white-space: nowrap; }
+        html body > aside ul li a, html body > aside ul li button {
+          align-items: center;
+          background: none;
+          color: var(--grayscale-200);
+          cursor: pointer;
+          display: flex;
+          font-size: small;
+          font-weight: 600;
+          fill: var(--grayscale-200);
+          padding: 0.5em var(--dim-large) 0.5em 0;
+          text-decoration: none;
+          width: 100%; }
+          html body > aside ul li a svg, html body > aside ul li button svg {
+            height: 1em;
+            padding: 0 2em 0 var(--dim-small);
+            width: 96px; }
+        html body > aside ul li button:hover,
+        html body > aside ul li button[aria-current="true"] {
+          color: var(--color-branding-100); }
+          html body > aside ul li button:hover svg,
+          html body > aside ul li button[aria-current="true"] svg {
+            fill: var(--color-branding-100); }
+        html body > aside ul li button[aria-current="true"] {
+          position: relative; }
+          html body > aside ul li button[aria-current="true"]::before {
+            background-color: var(--color-branding-100);
+            border-radius: 0 0.25em 0.25em 0;
+            content: "";
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 5px; }
+    html body > aside ul + h3 {
+      margin-top: var(--dim-small); }
+      html body > aside button#connect_wallet {
+        align-items: center;
+        background-color: white;
+        border: 1px solid rgba(163, 163, 163, 0.1);
+        border-radius: 0.25em;
+        box-shadow: var(--button-box-shadow);
+        cursor: pointer;
+        display: flex;
+        font-size: small;
+        font-weight: 600;
+        justify-content: center;
+        margin: var(--dim-small);
+        margin-top: auto;
+        padding: 0.5em 0; }
+        html body > aside button#connect_wallet svg {
+          fill: black;
+          height: 1em;
+          margin-right: 1.5em; }
+          html body > aside button#connect_wallet:disabled {
+            background-color: var(--grayscale-700);
+            cursor: not-allowed !important; }
+            html body > aside button#connect_wallet:disabled svg {
+              fill: var(--grayscale-200); }
+    html body > aside ul li:not(:first-of-type) {
+      margin-top: 1em; }
+      html body > aside > span.accentuate {
+        margin: 0 auto;
+        text-align: center; }
+  html body > main {
+    width: 100%;
+    overflow-y: auto;
+    position: relative; }
+    html body > main .tabs {
+      display: none;
+      position: absolute; }
+      html body > main .tabs[aria-current="true"] {
+        display: unset; }
+        html body > main ul.toolbar {
+          display: flex;
+          margin: var(--dim-small) 0;
+          list-style: none; }
+          html body > main ul.toolbar li button {
+            align-items: center;
+            border-radius: 0.25em;
+            display: flex;
+            font-size: small;
+            font-weight: 500;
+            padding: 0.5em 1em; }
+            html body > main ul.toolbar li button svg {
+              height: 1em;
+              margin-right: 1em; }
+          html body > main ul.toolbar li button:disabled {
+            background-color: var(--grayscale-700);
+            cursor: not-allowed !important;
+            fill: var(--grayscale-200); }
+            html body > main ul.toolbar li button:hover {
+              cursor: pointer; }
+          html body > main ul.toolbar li:first-of-type {
+            margin-left: -1em; }
+            html body > main ul.toolbar li:not(:first-of-type) {
+              margin-left: 2em; }
+    html body > main #tab-discover {
+      background-color: white;
+      width: 100%;
+      z-index: 3; }
+      html body > main #tab-discover input {
+        font-size: var(--dim-h3);
+        outline: 0;
+        padding: 1em 0 1em var(--dim-small);
+        width: 100%; }
+        html body > main #tab-discover .content-wrapper {
+          width: 100%; }
+          html body > main #tab-discover .content-wrapper header {
+            animation: animateBackground 5s ease infinite;
+            background-image: linear-gradient(135deg, var(--color-branding-800) 0%,
+                        var(--color-branding-900) 25%, var(--grayscale-800) 51%, white 100%);
+            background-size: 300% 300%;
+            border-color: var(--grayscale-600);
+            border-style: solid;
+            border-width: 0 0 1px 0;
+            display: flex;
+            flex-direction: column;
+            padding: var(--dim-large) var(--dim-small);
+            padding-bottom: 0;
+            position: relative;
+            text-align: center; }
+            html body > main #tab-discover .content-wrapper header .logo {
+              margin: 0 auto var(--dim-small) auto; }
+              html body > main #tab-discover .content-wrapper header .logo svg {
+                height: var(--dim-h2);
+                margin-left: -1.5em; }
+                html body > main #tab-discover .content-wrapper header .logo span.logotype {
+                  font-size: var(--dim-h2); }
+            html body > main #tab-discover .content-wrapper header h2 {
+              font-weight: 600;
+              margin: 1em 0 1.5em 0; }
+              html body > main #tab-discover .content-wrapper header p.description {
+                margin: 0 auto; }
+                html body > main #tab-discover .content-wrapper header p#faucets-hd {
+                  margin: var(--dim-small) auto 1em auto; }
+                  html body > main #tab-discover .content-wrapper header ul#faucets li {
+                    display: inline; }
+                    html body > main #tab-discover .content-wrapper header ul#faucets li button {
+                      align-items: center;
+                      background: none;
+                      border: 1px solid var(--grayscale-200);
+                      border-radius: 0.25em;
+                      color: var(--grayscale-200);
+                      cursor: pointer;
+                      display: inline-flex;
+                      font-size: small;
+                      padding: 0.5em 1em;
+                      text-decoration: none; }
+                      html body > main #tab-discover .content-wrapper header ul#faucets li button svg {
+                        fill: var(--grayscale-200);
+                        height: 1em;
+                        margin-right: 1.5em; }
+                    html body > main #tab-discover .content-wrapper header ul#faucets li button:hover {
+                      border: 1px solid black;
+                      color: black; }
+                      html body > main #tab-discover .content-wrapper header ul#faucets li button:hover svg {
+                        fill: black; }
+            html body > main #tab-discover .content-wrapper header ul#faucets li:not(:first-of-type) {
+              margin-left: 1.5em; }
+              html body > main #tab-discover .content-wrapper header p.disclaimer {
+                margin: var(--dim-large) auto 1rem auto;
+                max-width: 100%; }
+                html body > main #tab-discover .content-wrapper header p.version {
+                  position: absolute;
+                  bottom: 1rem;
+                  right: var(--dim-small); }
+          html body > main #tab-discover .content-wrapper ul.toolbar {
+            margin: var(--dim-small); }
+            html body > main #tab-discover .content-wrapper ul.toolbar button:not(:disabled) {
+              background-color: white;
+              border: 1px solid rgba(163, 163, 163, 0.1);
+              box-shadow: var(--button-box-shadow); }
+          html body > main #tab-discover .content-wrapper #nft-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(15vw, 1fr));
+            grid-gap: 2em;
+            margin: var(--dim-small); }
+            html body > main #tab-discover .content-wrapper #nft-grid button {
+              background: none;
+              text-align: left; }
+              html body > main #tab-discover .content-wrapper #nft-grid button figure {
+                border-radius: 0.25em;
+                overflow: hidden;
+                position: relative;
+                transition-duration: transform 0.3s; }
+                html body > main #tab-discover .content-wrapper #nft-grid button figure img {
+                  display: block;
+                  transition: transform 0.3s;
+                  width: 100%; }
+                  html body > main #tab-discover .content-wrapper #nft-grid button figure figcaption {
+                    color: white;
+                    display: none;
+                    font-size: var(--dim-h3);
+                    font-weight: 700;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    width: 100%; }
+                    html body > main #tab-discover .content-wrapper #nft-grid button figure figcaption h3 {
+                      margin: auto 0 1em 1em; }
+              html body > main #tab-discover .content-wrapper #nft-grid button figure:hover img {
+                transform: scale(1.1); }
+                html body > main #tab-discover .content-wrapper #nft-grid button figure:hover figcaption {
+                  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8) 90%, black);
+                  display: flex; }
+              html body > main #tab-discover .content-wrapper #nft-grid button .details {
+                font-size: small;
+                margin-top: 1em; }
+                html body > main #tab-discover .content-wrapper #nft-grid button .details span.id {
+                  display: block;
+                  font-weight: 700;
+                  margin-bottom: 0.25em; }
+                  html body > main #tab-discover .content-wrapper #nft-grid button .details span.views,
+                  html body > main #tab-discover .content-wrapper #nft-grid button .details span.fair-market_value {
+                    color: var(--grayscale-200);
+                    fill: var(--grayscale-200);
+                    align-items: center;
+                    display: inline-flex; }
+                    html body > main #tab-discover .content-wrapper #nft-grid button .details span.fair-market_value {
+                      margin-left: 1em; }
+                      html body > main #tab-discover .content-wrapper #nft-grid button .details svg {
+                        height: 1em;
+                        margin-right: 0.5em; }
+            html body > main #tab-discover .content-wrapper #nft-grid button:hover {
+              cursor: pointer; }
+    html body > main #tab-swap {
+      padding: var(--dim-small);
+      z-index: 2; }
+      html body > main #tab-swap .swap-proposal {
+        align-items: flex-start;
+        display: flex;
+        gap: var(--dim-small);
+        margin-top: var(--dim-extra-large); }
+        html body > main #tab-swap .swap-proposal img {
+          border-radius: 0.25em;
+          width: 30vh; }
+          html body > main #tab-swap .swap-proposal .swap-proposal-row {
+            align-items: center;
+            display: flex; }
+            html body > main #tab-swap .swap-proposal .swap-proposal-row h3 {
+              margin-bottom: 0;
+              white-space: nowrap; }
+              html body > main #tab-swap .swap-proposal .swap-proposal-row h3 svg {
+                height: var(--dim-h3);
+                transform: translateY(20%); }
+            html body > main #tab-swap .swap-proposal .swap-proposal-row select,
+            html body > main #tab-swap .swap-proposal .swap-proposal-row input {
+              background-color: var(--grayscale-700);
+              border-radius: 0.25em;
+              font-size: var(--dim-h3);
+              margin: 0 1em;
+              padding: 0.5em 1em; }
+              html body > main #tab-swap .swap-proposal .swap-proposal-row input {
+                max-width: 10ch; }
+        html body > main #tab-swap .swap-proposal p.return_message,
+        html body > main #tab-swap .swap-proposal .swap-proposal-row:not(:first-of-type) {
+          margin-top: var(--dim-small); }
+    html body > main #tab-lp {
+      background-color: var(--grayscale-800);
+      height: 100vh;
+      width: 100%;
+      z-index: 1; }
+      html body > main #tab-lp header {
+        background-color: white;
+        padding: var(--dim-small); }
+        html body > main #tab-lp header ul.toolbar {
+          margin-bottom: 0; }
+          html body > main #tab-lp header ul.toolbar button.open {
+            background-color: var(--color-branding-100);
+            color: white;
+            fill: white; }
+            html body > main #tab-lp header ul.toolbar li:first-of-type {
+              margin-left: -0.5em; }
+      html body > main #tab-lp div[aria-role="table"] {
+        background-color: var(--grayscale-800);
+        display: grid;
+        grid-template-columns: repeat(3, min-content) auto;
+        width: 100%; }
+        html body > main #tab-lp div[aria-role="table"] div:nth-child(-n+4) {
+          background-color: var(--grayscale-800);
+          border-width: 1px 0 3px 0;
+          color: var(--grayscale-200);
+          font-weight: 600; }
+          html body > main #tab-lp div[aria-role="table"] div {
+            align-items: center;
+            background-color: white;
+            border-color: var(--grayscale-600);
+            border-style: solid;
+            border-width: 0 0 1px 0;
+            display: flex;
+            padding: 0.5em 1em;
+            white-space: nowrap; }
+            html body > main #tab-lp div[aria-role="table"] div:nth-child(4n+1) {
+              padding-left: var(--dim-small); }
+              html body > main #tab-lp div[aria-role="table"] div:nth-child(4n+1) input {
+                margin: 0 auto; }
+        html body > main #tab-lp div[aria-role="table"] div:nth-child(4n+4) {
+          color: var(--grayscale-200); }
+
+@keyframes animateBackground {
+  0% {
+    background-position: 0% 50%;   }
+    50% {
+      background-position: 100% 50%;   }
+      100% {
+        background-position: 0% 50%;   }
+}

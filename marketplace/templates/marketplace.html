@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head prefix="og: http://ogp.me/ns#">
+		<!-- Prevent flash of unstyled content; see https://stackoverflow.com/questions/3221561/ -->
+		<style>body { visibility: hidden; opacity: 0; }</style>
+
+		<meta charset="utf-8">
+		<link rel="manifest" href="manifest.json">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+		<title>Danu&mdash;Marketplace</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;600;700&display=swap" rel="stylesheet"> 
+
+		<link rel="stylesheet" type="text/css" href="/css/common.css?v=1.0"/>
+		<link rel="stylesheet" type="text/css" href="/css/marketplace.css?v=1.0"/>
+
+		<meta name="author" content="Danu&mdash;launching soon">
+		<meta name="description" content="Danu automated market maker (AMM) for non-fungible tokens (NFTs). This is our tech demo.">
+		<meta property="og:url" content="https://danu.fi/marketplace">
+
+		<link rel="manifest" href="/site.webmanifest">
+		<link rel="canonical" href="https://danu.fi/marketplace"/>
+
+		<link rel="icon" type="image/png" href="/assets/icon-512x512.png">
+
+		<script src="//cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js" defer></script>
+
+		<script src="/js/common.js" defer></script>
+		<script src="/js/marketplace.js" defer></script>
+		<script src="/js/tab-discover.js" defer></script>
+		<script src="/js/tab-swap.js" defer></script>
+		<script src="/js/tab-lp.js" defer></script>
+	</head>
+
+	<body class="">
+
+		<aside>
+			<!-- Only if there's time left and if it's not ugly; https://stackoverflow.com/questions/71678374/get-metamask-profile-picture-and-name-use-web3 -->
+
+			<h3 id="toc-hd">Marketplace</h3>
+			<ul role="doc-toc" aria-labelledby="toc-hd">
+				<li role="menuitem">
+					<button id="tab-discover" onclick="switch_tab(event)" title="Buy NFTs from the pool." aria-current="true">
+						<svg viewBox="0 0 576 512"><use href="assets/icons.svg#store"/></svg>Discover
+					</button>
+				</li>
+
+				<li role="menuitem">
+					<button id="tab-swap" onclick="switch_tab(event)" title="Sell your NFTs for fungible tokens.">
+						<svg viewBox="0 0 512 512"><use href="assets/icons.svg#arrows-rotate"/></svg>Swap
+					</button>
+				</li>
+
+				<li role="menuitem">
+					<button id="tab-lp" onclick="switch_tab(event)" title="Provide liquidity&mdash;deposit tokens in return for commissions on every trade.">
+						<svg viewBox="0 0 576 512"><use href="assets/icons.svg#piggy-bank"/></svg>Provide liquidity
+					</button>
+				</li>
+			</ul>
+
+			<h3 id="utils-hd">Help</h3>
+			<ul labelledby="utils-hd">
+				<li role="menuitem">
+					<a href="//github.com/" title="View the 'how to use' presentation.">
+						<svg viewBox="0 0 576 512"><use href="assets/icons.svg#life-ring"/></svg>How to use
+					</a>
+				</li>
+				<li role="menuitem">
+					<a href="//danu.fi/light_paper.pdf" title="View the light paper.">
+						<svg viewBox="0 0 384 512"><use href="assets/icons.svg#file"/></svg>Light paper
+					</a>
+				</li>
+			</ul>
+
+			<button id="connect_wallet" onclick="connect_wallet()"><svg viewBox="0 0 512 512"><use href="assets/icons.svg/#wallet"/></svg><span id="wallet-connection-text">Connect wallet</span></button>
+
+			<span class="accentuate">Please feel free to <a href="mailto:help@danu.fi">mail</a> us for help!</span>
+		</aside>
+
+		<main aria-label="Marketplace">
+			<div id="tab-discover" class="tabs" aria-current="true">
+				<!-- Not enough time left :( -->
+				<!--<input name="search" type="text" placeholder="Type to search for an NFT by name or token ID"/>-->
+
+				<div class="content-wrapper">
+					<header>
+						<a class="logo" aria-label="Home" aria-current="page" href="/">
+							<svg class="logomark" viewBox="0 0 576 448" aria-label="Our logo"><use href="assets/icons.svg#frog"/></svg><span class="logotype">Danu</logotype></svg>
+						</a>
+
+						<h2>Explore the most exciting NFTs on the market</h2>
+
+						<p class="description">Danu is an automated market maker (<abbr title="Automated Market Maker">AMM</abbr>) for non-fungible tokens (<abbr title="Non-fungible token">NFT</abbr>s) on the Görli testnet for the Ethereum blockchain.</p>
+
+						<p id="faucets-hd" class="accentuate">Faucets to receive testnet funds</p>
+						<ul id="faucets" aria-labelledby="faucets-hd">
+							<li><button onclick="location.href='//goerli-faucet.pk910.de/';" type="button"><svg viewBox="0 0 320 512"><use href="assets/icons.svg/#ethereum"/></svg>Eth Faucet</button></li>
+							<li><button onclick="faucet_NFTs()" type="button"><svg viewBox="0 0 512 512"><use href="assets/icons.svg/#image"/></svg>NFT Faucet</button></li>
+						</ul>
+
+						<p class="disclaimer accentuate">This is a tech demo&mdash;please do not expect a flawless experience and <a href="mailto:bounties@danu.fi">report bugs</a> whenever you can :)</p>
+						<p class="version accentuate">Version 0.1</p>
+					</header>
+
+					<ul class="toolbar">
+						<li><button class="sort active"><svg viewBox="0 0 576 512"><use href="assets/icons.svg/#sort-down-wide-short"/></svg>Sort by descending popularity</button></li>
+						<li><button disabled title="Coming soon!"><svg viewBox="0 0 448 512"><use href="assets/icons.svg/#plus"/></svg>Add filter</button></li>
+					</ul>
+
+					<div id="nft-grid">
+						<button>
+							<figure>
+								<img src="assets/img/091d38d7f0038a2c90db53407a32c530.webp"/>
+								<figcaption><h3>Kuromi to the Moon!</h3></figcaption>
+							</figure>
+							<div class="details">
+								<span class="id">Hello Kitty and Friends World - No. 2</span>
+								<span class="views" title="1.4k views"><svg viewBox="0 0 576 512"><use href="assets/icons.svg/#eye"/></svg>1.4k views</span>
+								<span class="fair-market_value" title="Fair-market value"><svg viewBox="0 0 320 512"><use href="assets/icons.svg/#ethereum"/></svg>2.7</span>
+							</div>
+						</button>
+
+						<button>
+							<figure>
+								<img src="assets/img/7e7f50c8ae1188eb123b018d2b31721e.webp"/>
+								<figcaption><h3>Pompompurin to the Moon!</h3></figcaption>
+							</figure>
+							<div class="details">
+								<span class="id">Hello Kitty and Friends World - No. 1</span>
+								<span class="views" title="1.4k views"><svg viewBox="0 0 576 512"><use href="assets/icons.svg/#eye"/></svg>0.3k views</span>
+								<span class="fair-market_value" title="Fair-market value"><svg viewBox="0 0 320 512"><use href="assets/icons.svg/#ethereum"/></svg>2.8</span>
+							</div>
+						</button>
+
+						<button>
+							<figure>
+								<img src="assets/img/d43a70a1d8a845a3b1b9dbf959adfb55.webp"/>
+								<figcaption><h3>Keroppi to the Moon!</h3></figcaption>
+							</figure>
+							<div class="details">
+								<span class="id">Hello Kitty and Friends World - No. 6</span>
+								<span class="views" title="1.4k views"><svg viewBox="0 0 576 512"><use href="assets/icons.svg/#eye"/></svg>10.2k views</span>
+								<span class="fair-market_value" title="Fair-market value"><svg viewBox="0 0 320 512"><use href="assets/icons.svg/#ethereum"/></svg>9.0</span>
+							</div>
+						</button>
+
+						<button>
+							<figure>
+								<img src="assets/img/62e84cbdf506c3da2221c4a38732c888.webp"/>
+								<figcaption><h3>Cinnamorol to the Moon!</h3></figcaption>
+							</figure>
+							<div class="details">
+								<span class="id">Hello Kitty and Friends World  No. 4</span>
+								<span class="views" title="1.4k views"><svg viewBox="0 0 576 512"><use href="assets/icons.svg/#eye"/></svg>1.9k views</span>
+								<span class="fair-market_value" title="Fair-market value"><svg viewBox="0 0 320 512"><use href="assets/icons.svg/#ethereum"/></svg>1.9</span>
+							</div>
+						</button>
+
+						<button>
+							<figure>
+								<img src="assets/img/93210779480befe6c0e332a4b78bc472.webp"/>
+								<figcaption><h3>My Melody to the Moon!</h3></figcaption>
+							</figure>
+							<div class="details">
+								<span class="id">Hello Kitty and Friends World - No. 5</span>
+								<span class="views" title="1.4k views"><svg viewBox="0 0 576 512"><use href="assets/icons.svg/#eye"/></svg>1.3k views</span>
+								<span class="fair-market_value" title="Fair-market value"><svg viewBox="0 0 320 512"><use href="assets/icons.svg/#ethereum"/></svg>3.2</span>
+							</div>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div id="tab-swap" class="tabs">
+				<h2>Swap</h2>
+
+				<p class="accentuate">Select an NFT from your wallet to exchange for fungible tokens.</p>
+
+				<p class="accentuate">We levy a 1% commission to repay our liquidity providers. The displayed price is furthermore, if applicable, allowed to deviate 1% from the oracle price requested by the smart contract.</p>
+
+				<div class="swap-proposal">
+
+					<img src="/assets/img/kung_fu-1.jpeg" title="NFT 0x12...48cc No. 271"/>
+
+					<aside>
+						<div class="swap-proposal-row">
+							<h3 id="word_0">List</h3>
+							<select id="nfts_in_wallet" name="NFTs">
+								<option value="example" class="placeholder">NFT 0x12...48cc No. 271 - Example</option>
+							</select>
+							<h3 id="word_1">at</h3>
+							<select id="select_pricing_mechanism" name="pricing">
+								<option value="fair-market_price">its fair-market price</option>
+								<option value="liquidation_price">its liquidation price</option>
+								<option value="custom_price">my own price</option>
+							</select>
+						</div>
+
+						<div class="swap-proposal-row">
+							<h3 id="word_2">of currently</h3>
+							<input id="value" type="number" min="0.1" placeholder="5"/>
+							<h3><svg viewBox="0 0 320 512"><title>Ether</title><use href="assets/icons.svg/#ethereum"/></svg>&ThinSpace;? If so, type</h3>
+							<input type="text" placeholder="Yes"/>
+							<h3>and hit enter.</h3>
+						</div>
+
+						<p class="return_message accentuate">Informational message on success or failure goes here.</p>
+					</aside>
+				</div>
+			</div>
+
+			<div id="tab-lp" class="tabs">
+				<header>
+					<h2>Provide liquidity</h2>
+
+					<p class="accentuate">Deposit tokens in return for commissions on every trade.</p>
+
+					<ul class="toolbar">
+						<li><button class="sort open" title="Open a position"><svg viewBox="0 0 448 512"><use href="assets/icons.svg/#plus"/></svg>Open position</button></li>
+						<li><button disabled title="Please open a position first"><svg viewBox="0 0 448 512"><use href="assets/icons.svg/#trash-can"/></svg>Close position</button></li>
+					</ul>
+				</header>
+
+				<div aria-role="table" aria-label="Positions" aria-describedby="Table of open positions">
+					<!-- Header -->
+					<div>Select</div>
+					<div>Date</div>
+					<div>Size</div>
+					<div>Description</div>
+					<!-- Body -->
+					<div class="placeholder"><input type="checkbox"></div>
+					<div class="placeholder">Wednesday, 24-Aug-22 22:06:38 UTC</div>
+					<div class="placeholder">10.00 ETH</div>
+					<div class="placeholder">Example Eth liquidity position. Connect your wallet to view positions real-time.</div>
+				</div>
+			</div>
+		</main>
+	</body>
+
+</html>
+

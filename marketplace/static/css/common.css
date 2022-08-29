@@ -1,0 +1,90 @@
+:root {
+  --dim-small: 5vh;
+  --dim-large: 10vh;
+  --dim-extra-large: 15vh;
+  --dim-h1: 3rem;
+  --dim-h2: 1.75rem;
+  --dim-h3: 1.25rem;
+  --dim-footnote: 0.8rem;
+  --color-branding-100: #6443c6;
+  --color-branding-800: #beb0e8;
+  --color-branding-900: #ebe6f8;
+  --grayscale-200: #595959;
+  --grayscale-600: #ddd;
+  --grayscale-700: #ebecee;
+  --grayscale-800: #f8f8f8;
+  --button-box-shadow: rgba(115, 115, 115, 0.38) 0.3px 0.5px 0.7px 0px, rgba(115, 115, 115,
+    0.47) 0.5px 1px 1.4px -0.9px, rgba(115, 115, 115, 0.57) 1.3px 2.5px 3.5px -1.8px; }
+
+  ::selection {
+    background-color: var(--color-branding-800);
+    color: black; }
+
+    * {
+      border: 0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0; }
+
+      html {
+        font: 500 16px / 1.8 "Open Sans", -apple-system, sans-serif;
+        scroll-behavior: smooth; }
+        html body {
+          text-rendering: geometricPrecision; }
+          html body ul {
+            list-style: none; }
+            html body a {
+              color: inherit; }
+              html body a[download]::after {
+                content: " →"; }
+                html body a:hover {
+                  color: var(--color-branding-100) !important;
+                  fill: var(--color-branding-100) !important;
+                  text-decoration: none; }
+          html body h1, html body h2, html body h3 {
+            line-height: 1.2;
+            margin-bottom: 1em; }
+            html body p {
+              max-width: 60ch; }
+              html body p + p {
+                margin-top: 1em; }
+                html body p + h2, html body p + h3, html body form + h2, html body form + h3 {
+                  margin-top: 2.1em; }
+                  html body h1 {
+                    font-size: var(--dim-h1); }
+                    html body h2 {
+                      font-size: var(--dim-h2); }
+                      html body h3 {
+                        font-size: var(--dim-h3); }
+                        html body .logo {
+                          align-items: center;
+                          display: inline-flex;
+                          text-decoration: none; }
+                          html body .logo svg.logomark {
+                            height: 1.5em;
+                            margin-right: 1.75em; }
+                            html body .logo span.logotype {
+                              font-size: var(--dim-h3);
+                              font-weight: 800; }
+          html body .accentuate {
+            color: var(--grayscale-200);
+            font-size: small; }
+            html body .accentuate a {
+              color: var(--color-branding-100); }
+        html body.loaded {
+          opacity: 1;
+          visibility: visible; }
+
+@media only screen and (max-width: 1200px) {
+  body {
+    padding: var(--dim-small) !important;   }
+    body p {
+      max-width: unset !important;   }
+}
+
+@keyframes keyframes-bg-slide {
+  0% {
+    transform: translateX(-10%);   }
+    100% {
+      transform: translateX(10%);   }
+}

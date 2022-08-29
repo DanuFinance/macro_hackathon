@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head prefix="og: http://ogp.me/ns#">
+		<meta charset="utf-8">
+		<link rel="manifest" href="manifest.json">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+		<title>Danu - {{error.code}} error</title>
+
+		<link href="logo.svg" rel="prefetch"/>
+
+		<link rel="stylesheet" type="text/css" href="/css/common.css?v=1.0"/>
+
+		<meta name="author" content="Danu">
+		<meta property="og:url" content="https://danu.fi">
+
+		<link rel="manifest" href="site.webmanifest">
+		<link rel="canonical" href="https://danu.fi/"/>
+
+		<link rel="icon" type="image/png" href="/assets/icon-512x512.png">
+	</head>
+
+	<body class="">
+		<div class="wrapper-section">
+			<a class="logo" aria-label="Home" aria-current="page" href="/">
+				<svg class="logomark" viewBox="0 -32 576 448" aria-label="Our logo"><use href="{{url_for('static', filename='logo.svg')}}#frog" aria-hidden="true"></use></svg>
+				<span class="logotype">Danu</span>
+			</a>
+
+			<h1 id="error-code">Error {{error.code}}{{message}}</h1>
+
+			<p id="error-description">{{error.description}}</p>
+
+			<p class="de-emphasized">Please excuse us if this was our fault; our infrastructure is under heavy development.</p>
+
+			<p class="de-emphasized">Return to the <a aria-label="Marketplace" href="/marketplace" >marketplace</a> or <a href="mailto:hello@danu.finance">mail us</a> for further assistance.</p>
+		</div>
+	</body>
+</html>

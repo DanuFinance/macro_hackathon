@@ -1,0 +1,138 @@
+/* Written by for Danu, 2022 */
+
+
+/* Our brand typeface is Söhne, from https://klim.co.nz/retail-fonts/soehne/. Because we do not
+ * have the rights to distribute that, however, we chose Open Sans instead for this competition. */
+
+
+:root {
+	/* Dimensions */
+	--dim-small:            5vh;
+	--dim-large:            10vh;
+	--dim-extra-large:      15vh;
+	--dim-h1:               3.00rem;
+	--dim-h2:               1.75rem;
+	--dim-h3:               1.25rem;
+	--dim-footnote:         0.80rem;
+
+	/* Light (i.e. default) color scheme */
+	--color-branding-100:   #6443c6;
+	--color-branding-800:   #beb0e8;
+	--color-branding-900:   #ebe6f8;
+	--grayscale-200:        #595959;
+	/* these below have been added, but not sure whether will use them all; remove unnecessary ones */
+	--grayscale-600:        #ddd;
+	--grayscale-700:        #ebecee;
+	--grayscale-800:        #f8f8f8;
+
+	/* Button box shadow - stolen from https://www.joshwcomeau.com/shadow-palette/ */
+	--button-box-shadow:    rgba(115, 115, 115, 0.38) 0.3px 0.5px 0.7px 0px, rgba(115, 115, 115, 0.47) 0.5px 1px 1.4px -0.9px, rgba(115, 115, 115, 0.57) 1.3px 2.5px 3.5px -1.8px;
+}
+
+
+::selection {
+	background-color: var(#{--color-branding-800});
+	color: black;
+}
+
+
+
+* {
+	border: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+
+html {
+	font: 500 16px / 1.80 "Open Sans", -apple-system, sans-serif;
+	scroll-behavior: smooth;
+
+	body {
+		text-rendering: geometricPrecision;
+
+		ul { list-style: none; }
+
+		a {
+			color: inherit;
+
+			&[download]::after { content: " →"; }  /* Söhne doesn't have en spaces */
+
+			&:hover {
+				color: var(#{--color-branding-100}) !important;
+				fill: var(#{--color-branding-100}) !important;
+				text-decoration: none;
+			}
+		}
+
+		h1, h2, h3 {
+			line-height: 1.20;
+			margin-bottom: 1.00em;
+		}
+
+		p { max-width: 60ch; }
+
+		p + p { margin-top: 1em; }
+
+		p + h2, p + h3, form + h2, form + h3 { margin-top: 2.10em; }
+
+		h1 { font-size: var(#{--dim-h1}); }
+
+		h2 { font-size: var(#{--dim-h2}); }
+
+		h3 { font-size: var(#{--dim-h3}); }
+
+		.logo {
+			align-items: center;
+			display: inline-flex;
+			text-decoration: none;  /* logo can be employed in anchors */
+
+			svg.logomark {
+				height: 1.5em;
+				margin-right: 1.75em;
+			}
+
+			span.logotype {
+				font-size: var(#{--dim-h3});
+				font-weight: 800;
+			}
+		}
+
+		.accentuate {
+			color: var(#{--grayscale-200});
+			font-size: small;
+
+			a {
+				color: var(#{--color-branding-100});
+			}
+		}
+	}
+
+	body.loaded {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+
+@media only screen and (max-width: 1200px) {
+	body {
+		padding: var(#{--dim-small}) !important;
+
+		p { max-width: unset !important; }
+	}
+}
+
+
+/* Stolen from https://codepen.io/chris22smith/pen/RZogMa?editors=1100 */
+@keyframes keyframes-bg-slide {
+	0% {
+		transform: translateX(-10%);
+	}
+
+	100% {
+		transform:translateX(10%);
+	}
+}
+

@@ -1,0 +1,97 @@
+\newsavebox{\pricingoraclebox}
+\savebox{\pricingoraclebox}{%
+	\begin{tikzpicture}
+		\draw [very thin, -latex] (-0.2, 0) -- (4, 0) node[right] {$\mathbf{x}$};
+		\draw [very thin, -latex] (0, -0.2) -- (0, 2) node[above] {$\mathbb{E}\left[{Y(\mathbf{x})}\right]$};
+		% sin(\x r + 180)) + 0.8, otherwise underdamped oscillator
+		\draw [thick, smooth, branding-100] (0, 0) plot [domain=0:4] (\x, {exp(-0.7*\x)*cos(2*\x r + 0.2) + 0.5}) node [black, above, anchor = south east, yshift=4pt] {$\frac{1}{n_\text{obs}} \sum_i^{n_\text{obs}} f_i(\mathbf{x},~\hat{z}_i)$};
+	\end{tikzpicture}%
+}
+
+
+\newsavebox{\tokens}
+\savebox{\tokens}{%
+	\begin{tikzpicture}
+		\path (-0.75, 0.2) rectangle (0.95, -1.85);  % Compensate paddings for drawmultiple
+		\draw [
+			fill = white,
+			drawmultiple,
+		]
+			(0.75, 0) --
+			(-0.75, 0) --
+			(-0.75, -1.75) --
+			plot [
+				domain=0:1.5,
+				xshift=-0.75cm,
+				yshift=-1.75cm
+			] ({\x}, {0.1*sin(4*\x r + 180)}) -- cycle;
+			%\node at (0, -0.875) {Tokens \\ \(\mathbb{T}_◌\)};
+	\end{tikzpicture}
+}
+
+
+\newsavebox{\smartcontract}
+\savebox{\smartcontract}{%
+	\begin{tikzpicture}
+		\node (tokens-1) at (0, 0) {\usebox{\tokens}};
+		%\node [
+		%	right = of tokens-1,
+		%	xshift = -0.75cm
+		%] (tokens-2) {\usebox{\tokens}};
+		\begin{scope}[on background layer]
+			\node [
+				fill = grayscale-700,
+				fit = (tokens-1)(tokens-1),
+				inner sep = 5mm,
+				label = {[%
+					anchor = west,%
+					xshift = 2.5mm,%
+					fill = white
+				]north west:Liquidity pool \(i\)}
+			] (pool) {};  % https://tex.stackexchange.com/questions/59012/how-to-use-fit-to-frame-the-nodes-and-labels
+		\end{scope}
+
+		\begin{scope}  % Compensate for double draw offset
+			\node [xshift = -1mm] at (tokens-1) {Tokens \\ \(\mathbb{T}_i\)};
+		\end{scope}
+	\end{tikzpicture}
+}
+
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[
+		node distance = 1.00cm and 1.50cm,
+		label distance = 5mm,
+		component/.style = {%
+			draw,
+			fill = white,
+			inner sep = 2.5mm
+		}
+	]
+
+		% Components
+		% - Pricing DS
+		\node [
+			component,%
+			label = {[name = labelDS] Open-source NFT pricing model},%
+			drawmultiple = {0.2}
+			] (DS) at (0, 0) {\usebox{\pricingoraclebox}};
+		% - Exchange smart contract
+		\node [
+			component,
+			right = of DS
+		] (SC) {\usebox{\smartcontract}};
+		\node [component, densely dashed, above = of SC] (Users) {Users (LPs and takers)};
+
+		% Arrows
+		\draw [<->] (SC.north) -- (Users.south) node [midway, fill=white] {\footnotesize Commissions};
+		\draw [->] (DS.east) -- (SC.west) node [midway, fill=white] {\footnotesize TTP};
+
+	\end{tikzpicture}
+	%\caption{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed molestie lorem a dui porttitor fermentum. Aliquam aliquet est vel ipsum lobortis pharetra. In efficitur nec ex in cursus.}%
+	%\caption{One of our novelties is to use an off-chain pricing model as a mediator in transactions. That way, liquidity providers (LPs) accrue less risk and traders obtain much more accurate pricing than with the established solution of bonding curves.}
+	\caption{One of our novelties is the use of an off-chain pricing model in transactions, as opposed to the established solution of using bonding curves. That way, liquidity providers (LPs) accrue less risk and traders obtain much more accurate pricing.}
+	\label{fig:architecture}
+\end{figure}
+
